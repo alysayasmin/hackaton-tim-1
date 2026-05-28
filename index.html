@@ -23,6 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
 
+    <!-- Font Awesome CDN — taruh di head sebelum style.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <!-- style.css -->
     <link rel="stylesheet" href="/asset/style/style.css">
 
@@ -54,10 +57,24 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/pages/collection.html">Collection</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/manage.html">Manage</a>
-                    </li>
                 </ul>
+
+                <!-- ini ditambahin  <a href> -->
+
+                <!-- Cart Button dengan Badge di Navbar -->
+                <button type="button" class="btn position-relative" id="cartBtn">
+
+                    <!-- Icon cart dari Font Awesome -->
+                    <i class="fa-solid fa-cart-arrow-down" style="font-size: 18px; color: #3A2820;"></i>
+
+                    <!-- Badge angka — diupdate oleh JS -->
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        id="cartBadge">
+                        0
+                        <span class="visually-hidden">item di keranjang</span>
+                    </span>
+
+                </button>
             </div>
         </div>
     </nav>
@@ -73,9 +90,10 @@
                     <div class="col-lg-7">
                         <h1 class="hero-heading">
                             Timeless of the <br />
-                            <i>craftsmanship</i>, <br />
+                            <!-- ubah warna -->
+                            <span class="text-highlight"><i>craftsmanship</i></span>, <br />
                             from the heart of <br />
-                            <i>Indonesian</i> teak.
+                            <span class="text-highlight"><i>craftsmanship</i></span> teak.
                         </h1>
                     </div>
 
@@ -83,7 +101,10 @@
                     <div class="col-lg-5">
                         <div class="hero-right">
                             <p class="hero-body">
-                                KayuKita memadukan keahlian tradisional dengan desain modern untuk menciptakan furnitur kokoh dari kayu jati Indonesia.Setiap bagian dibuat dengan tangan secara teliti, dirancang untuk menghadirkan kehangatan, karakter, dan kehadiran abadi ke setiap ruangan.
+                                KayuKita memadukan keahlian tradisional dengan desain modern untuk menciptakan furnitur
+                                kokoh dari kayu jati Indonesia.Setiap bagian dibuat dengan tangan secara teliti,
+                                dirancang untuk menghadirkan kehangatan, karakter, dan kehadiran abadi ke setiap
+                                ruangan.
                             </p>
 
                             <div class="hero-buttons">
