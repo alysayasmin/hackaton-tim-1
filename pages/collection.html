@@ -232,6 +232,14 @@
     }
   ];
 
+  function getProducts() {
+    return JSON.parse(localStorage.getItem("products")) || products;
+}
+
+  function saveProducts(data) {
+    localStorage.setItem("products", JSON.stringify(data));
+}
+
   function getCart() {
     return JSON.parse(localStorage.getItem("cartItems")) || [];
   }
@@ -246,13 +254,14 @@
     document.getElementById("cartBadge").textContent = total;
   }
 
-  function addToCart(productId) {
-  const product = products.find(p => p.id === productId);
+ function addToCart(productId) {
+  let productList = getProducts();
+  let product = productList.find(p => p.id === productId);
+
   if (!product || product.stock <= 0) return;
 
   let cart = getCart();
-
-  const existing = cart.find(item => item.id === productId);
+  let existing = cart.find(item => item.id === productId);
 
   if (existing) {
     existing.qty++;
@@ -260,23 +269,28 @@
     cart.push({ ...product, qty: 1 });
   }
 
-  // 🔥 KURANGI STOCK
+ 
   product.stock--;
 
+  saveProducts(productList);
   saveCart(cart);
+
   updateCartBadge();
   renderProducts();
 
-  showSuccess();
+
+  showSuccess(product.name);
 }
 
   function renderProducts() {
-     const productGrid = document.getElementById("productGrid");
+  const productGrid = document.getElementById("productGrid");
   const productCount = document.getElementById("product-count");
 
-  productCount.textContent = `${products.length} produk tersedia`;
+  const productList = getProducts(); // 🔥 ambil dari localStorage
 
-  productGrid.innerHTML = products.map(product => {
+  productCount.textContent = `${productList.length} produk tersedia`;
+
+  productGrid.innerHTML = productList.map(product => {
 
     const isOut = product.stock <= 0;
 
@@ -328,6 +342,10 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    if (!localStorage.getItem("products")) {
+    saveProducts(products);
+    }
+    
     renderProducts();
     updateCartBadge();
   });

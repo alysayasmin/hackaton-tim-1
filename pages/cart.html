@@ -32,7 +32,10 @@
     <link rel="stylesheet" href="../asset/style/style.css" />
     <link rel="icon" type="images/png" href="../asset/images/favicon.png" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   </head>
 
   <body>
@@ -99,144 +102,240 @@
           <!-- isi cart akan dirender di sini -->
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mt-4">
+        <div
+          class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3"
+        >
+          <!-- KIRI -->
           <div>
             <h5 class="mb-0">Total Belanja</h5>
             <h5 class="fw-bold mb-0" id="cartTotal">Rp 0</h5>
           </div>
 
-            <button class="btn btn-dark px-5 py-3 rounded-3 fw-semibold" onclick="openOrderModal()">
-                Pesan Sekarang
+          <!-- KANAN -->
+          <div class="d-flex gap-2">
+
+            <a href="./history.html" class="btn btn-outline-dark px-4 py-3">
+                Riwayat
+             </a>
+
+            <button
+              class="btn btn-outline-danger px-4 py-3 rounded-3 fw-semibold"
+              onclick="clearCart()"
+            >
+              Clear Cart
             </button>
 
+            <button
+              class="btn btn-dark px-5 py-3 rounded-3 fw-semibold"
+              onclick="openOrderModal()"
+            >
+              Pesan Sekarang
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pesan Sekarang</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pesan Sekarang</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
 
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Nama</label>
-          <input type="text" id="orderName" class="form-control" placeholder="Masukkan nama kamu">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Nama</label>
+              <input
+                type="text"
+                id="orderName"
+                class="form-control"
+                placeholder="Masukkan nama kamu"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Alamat</label>
+              <textarea
+                id="orderAddress"
+                class="form-control"
+                rows="3"
+                placeholder="Masukkan alamat lengkap"
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Ringkasan Pesanan</label>
+              <div id="orderSummary" class="border rounded p-3 bg-light"></div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fw-semibold">Total belanja</span>
+              <span class="fw-bold" id="orderGrandTotal">Rp 0</span>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-dark w-100" onclick="payNow()">
+              Bayar Sekarang
+            </button>
+          </div>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label">Alamat</label>
-          <textarea id="orderAddress" class="form-control" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Ringkasan Pesanan</label>
-          <div id="orderSummary" class="border rounded p-3 bg-light"></div>
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center">
-          <span class="fw-semibold">Total belanja</span>
-          <span class="fw-bold" id="orderGrandTotal">Rp 0</span>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-dark w-100" onclick="payNow()">Bayar Sekarang</button>
       </div>
     </div>
-  </div>
-</div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-  function getCart() {
-    return JSON.parse(localStorage.getItem("cartItems")) || [];
-  }
+      function getProducts() {
+        return JSON.parse(localStorage.getItem("products")) || [];
+      }
 
-  function saveCart(cart) {
-    localStorage.setItem("cartItems", JSON.stringify(cart));
-  }
+      function saveProducts(data) {
+        localStorage.setItem("products", JSON.stringify(data));
+      }
 
-  function formatRupiah(num) {
-    return "Rp " + num.toLocaleString("id-ID");
-  }
+      function getCart() {
+        return JSON.parse(localStorage.getItem("cartItems")) || [];
+      }
 
-  function updateCartBadge() {
-    const cart = getCart();
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      function saveCart(cart) {
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+      }
 
-    const badge = document.getElementById("cartBadge");
-    const countText = document.getElementById("cartCountText");
+      function formatRupiah(num) {
+        return "Rp " + num.toLocaleString("id-ID");
+      }
 
-    if (badge) badge.textContent = totalQty;
-    if (countText) countText.textContent = totalQty + " items";
-  }
-
-  function changeQty(index, change) {
-    const cart = getCart();
-
-    cart[index].qty += change;
-
-    if (cart[index].qty <= 0) {
-      cart.splice(index, 1);
-    }
-
-    saveCart(cart);
-    renderCart();
-  }
-
-  function confirmDelete(index) {
-    Swal.fire({
-      title: "Apakah anda yakin?",
-      text: "Barang ini akan dihapus dari keranjang.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
+      function updateCartBadge() {
         const cart = getCart();
-        cart.splice(index, 1);
-        saveCart(cart);
-        renderCart();
+        const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+
+        const badge = document.getElementById("cartBadge");
+        const countText = document.getElementById("cartCountText");
+
+        if (badge) badge.textContent = totalQty;
+        if (countText) countText.textContent = totalQty + " items";
+      }
+
+      function clearCart() {
+        const cart = getCart();
+
+        if (!cart.length) {
+          Swal.fire({
+            icon: "info",
+            title: "Keranjang kosong",
+          });
+          return;
+        }
 
         Swal.fire({
-          icon: "success",
-          title: "Barang berhasil dihapus",
-          showConfirmButton: false,
-          timer: 1400
+          title: "Hapus semua barang?",
+          text: "Semua item di keranjang akan dihapus.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yak, hapus aja",
+          cancelButtonText: "No",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // 🔥 AMBIL PRODUCT DARI STORAGE
+            let productList = getProducts();
+
+            // 🔥 BALIKIN STOCK
+            cart.forEach((cartItem) => {
+              let product = productList.find((p) => p.id === cartItem.id);
+              if (product) {
+                product.stock += cartItem.qty;
+              }
+            });
+
+            // 🔥 SIMPAN STOCK BARU
+            saveProducts(productList);
+
+            // 🔥 HAPUS CART
+            localStorage.removeItem("cartItems");
+
+            renderCart();
+            updateCartBadge();
+
+            Swal.fire({
+              icon: "success",
+              title: "Cart berhasil dikosongkan",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
         });
       }
-    });
-  }
 
-  function openOrderModal() {
-    const cart = getCart();
+      function changeQty(index, change) {
+        const cart = getCart();
 
-    if (cart.length === 0) {
-      Swal.fire({
-        icon: "info",
-        title: "Keranjang masih kosong",
-        text: "Silakan tambahkan barang terlebih dahulu."
-      });
-      return;
-    }
+        cart[index].qty += change;
 
-    const summaryEl = document.getElementById("orderSummary");
-    const totalEl = document.getElementById("orderGrandTotal");
+        if (cart[index].qty <= 0) {
+          cart.splice(index, 1);
+        }
 
-    let grandTotal = 0;
+        saveCart(cart);
+        renderCart();
+      }
 
-    summaryEl.innerHTML = cart.map((item) => {
-      const subtotal = item.price * item.qty;
-      grandTotal += subtotal;
+      function confirmDelete(index) {
+        Swal.fire({
+          title: "Apakah anda yakin?",
+          text: "Barang ini akan dihapus dari keranjang.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+          reverseButtons: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+            renderCart();
 
-      return `
+            Swal.fire({
+              icon: "success",
+              title: "Barang berhasil dihapus",
+              showConfirmButton: false,
+              timer: 1400,
+            });
+          }
+        });
+      }
+
+      function openOrderModal() {
+        const cart = getCart();
+
+        if (cart.length === 0) {
+          Swal.fire({
+            icon: "info",
+            title: "Keranjang masih kosong",
+            text: "Silakan tambahkan barang terlebih dahulu.",
+          });
+          return;
+        }
+
+        const summaryEl = document.getElementById("orderSummary");
+        const totalEl = document.getElementById("orderGrandTotal");
+
+        let grandTotal = 0;
+
+        summaryEl.innerHTML = cart
+          .map((item) => {
+            const subtotal = item.price * item.qty;
+            grandTotal += subtotal;
+
+            return `
         <div class="d-flex justify-content-between align-items-start mb-2">
           <div>
             <div class="fw-semibold">${item.name}</div>
@@ -245,86 +344,109 @@
           <div class="fw-semibold">${formatRupiah(subtotal)}</div>
         </div>
       `;
-    }).join("");
+          })
+          .join("");
 
-    totalEl.textContent = formatRupiah(grandTotal);
+        totalEl.textContent = formatRupiah(grandTotal);
 
-    document.getElementById("orderName").value = "";
-    document.getElementById("orderAddress").value = "";
+        document.getElementById("orderName").value = "";
+        document.getElementById("orderAddress").value = "";
 
-    const modal = new bootstrap.Modal(document.getElementById("orderModal"));
-    modal.show();
-  }
-
-  function payNow() {
-    const name = document.getElementById("orderName").value.trim();
-    const address = document.getElementById("orderAddress").value.trim();
-    const cart = getCart();
-
-    if (!cart.length) {
-      Swal.fire({
-        icon: "info",
-        title: "Keranjang masih kosong"
-      });
-      return;
-    }
-
-    if (!name || !address) {
-      Swal.fire({
-        icon: "warning",
-        title: "Lengkapi data dulu",
-        text: "Name dan alamat wajib diisi."
-      });
-      return;
-    }
-
-    const modalEl = document.getElementById("orderModal");
-    const modalInstance = bootstrap.Modal.getInstance(modalEl);
-    if (modalInstance) modalInstance.hide();
-
-    localStorage.removeItem("cartItems");
-    renderCart();
-
-    Swal.fire({
-      icon: "success",
-      title: "Terima kasih telah berbelanja",
-      text: "Pesanan kamu berhasil diproses.",
-      showConfirmButton: false,
-      timer: 2000,
-      showClass: {
-        popup: "animate__animated animate__zoomIn"
-      },
-      hideClass: {
-        popup: "animate__animated animate__zoomOut"
+        const modal = new bootstrap.Modal(
+          document.getElementById("orderModal"),
+        );
+        modal.show();
       }
-    });
-  }
 
-  function renderCart() {
-    const cart = getCart();
-    const container = document.getElementById("cartContainer");
-    const totalEl = document.getElementById("cartTotal");
+      function payNow() {
+        const name = document.getElementById("orderName").value.trim();
+        const address = document.getElementById("orderAddress").value.trim();
+        const cart = getCart();
 
-    if (!cart.length) {
-      container.innerHTML = `
+        if (!cart.length) {
+          Swal.fire({
+            icon: "info",
+            title: "Keranjang masih kosong",
+          });
+          return;
+        }
+
+        if (!name || !address) {
+          Swal.fire({
+            icon: "warning",
+            title: "Lengkapi data dulu",
+            text: "Nama dan alamat wajib diisi.",
+          });
+          return;
+        }
+
+        // 🔥 AMBIL HISTORY LAMA
+        let history = JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+        // 🔥 HITUNG TOTAL
+        let total = 0;
+        cart.forEach((item) => {
+          total += item.price * item.qty;
+        });
+
+        // 🔥 SIMPAN PESANAN BARU
+        history.push({
+          id: Date.now(),
+          name,
+          address,
+          items: cart,
+          total,
+          date: new Date().toLocaleString("id-ID"),
+        });
+
+        localStorage.setItem("orderHistory", JSON.stringify(history));
+
+        // 🔥 KOSONGKAN CART
+        localStorage.removeItem("cartItems");
+
+        // Tutup modal
+        const modalEl = document.getElementById("orderModal");
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
+        if (modalInstance) modalInstance.hide();
+
+        renderCart();
+
+        // 🔥 ALERT SUCCESS
+        Swal.fire({
+          icon: "success",
+          title: "Terima kasih telah berbelanja",
+          text: "Pesanan kamu berhasil diproses.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+
+      function renderCart() {
+        const cart = getCart();
+        const container = document.getElementById("cartContainer");
+        const totalEl = document.getElementById("cartTotal");
+
+        if (!cart.length) {
+          container.innerHTML = `
         <div class="col-12">
           <div class="alert alert-secondary text-center mb-0">
             Keranjang masih kosong
           </div>
         </div>
       `;
-      totalEl.textContent = "Rp 0";
-      updateCartBadge();
-      return;
-    }
+          totalEl.textContent = "Rp 0";
+          updateCartBadge();
+          return;
+        }
 
-    let total = 0;
+        let total = 0;
 
-    container.innerHTML = cart.map((item, index) => {
-      const subtotal = item.price * item.qty;
-      total += subtotal;
+        container.innerHTML = cart
+          .map((item, index) => {
+            const subtotal = item.price * item.qty;
+            total += subtotal;
 
-      return `
+            return `
         <div class="col-12">
           <div class="card shadow-sm border-0">
             <div class="row g-0 align-items-center">
@@ -362,16 +484,17 @@
           </div>
         </div>
       `;
-    }).join("");
+          })
+          .join("");
 
-    totalEl.textContent = formatRupiah(total);
-    updateCartBadge();
-  }
+        totalEl.textContent = formatRupiah(total);
+        updateCartBadge();
+      }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    renderCart();
-    updateCartBadge();
-  });
-</script>
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCart();
+        updateCartBadge();
+      });
+    </script>
   </body>
 </html>
