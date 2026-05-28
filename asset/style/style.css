@@ -134,3 +134,43 @@ body {
   object-fit: cover;
   border-radius: 20px;
 }
+
+.img-wrap {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.img-wrap:hover .product-img {
+  transform: scale(1.1);
+}
+
+.price-old {
+  text-decoration: line-through;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.price-new {
+  font-weight: 700;
+  color: #3A2820;
+}
+
+.checkout-box {
+  background: white;
+  border-radius: 16px;
+}
+
+.tooltip-inner {
+  max-width: 200px;   /* batas lebar */
+  white-space: normal; /* biar turun ke bawah */
+  text-align: left;
+}
