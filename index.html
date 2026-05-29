@@ -22,10 +22,6 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-    <!-- style.css -->
-    <link rel="stylesheet" href="./asset/style/style.css" />
-    <!-- Favicon -->
-    <link rel="icon" type="images/png" href="asset/images/favicon.png" />
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,6 +30,18 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Font Awesome CDN — taruh di head sebelum style.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="./asset/style/style.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="images/png" href="./asset/images/favicon.png" />
   </head>
 
   <body>
@@ -43,7 +51,7 @@
         <!-- Brand / Logo -->
         <a class="navbar-brand logo-brand" href="#">
           <img
-            src="asset/images/Navbar Logo.png"
+            src="./asset/images/Bigger Logo.png    "
             alt="Logo KayuKita"
             width="155"
             height="50"
@@ -66,17 +74,35 @@
           <!-- Nav Links -->
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="./index.html"
+                >Home</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Collection</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Manage</a>
+              <a class="nav-link" href="./pages/collection.html">Collection</a>
             </li>
           </ul>
-          <!-- CTA Button
-                <button class="btn btn-primary" type="button">Login</button> -->
+
+          <!-- ini ditambahin  <a href> -->
+          <a href="./pages/cart.html">
+            <!-- Cart Button dengan Badge di Navbar -->
+            <button type="button" class="btn position-relative" id="cartBtn">
+              <!-- Icon cart dari Font Awesome -->
+              <i
+                class="fa-solid fa-cart-arrow-down"
+                style="font-size: 18px; color: #3a2820"
+              ></i>
+
+              <!-- Badge angka — diupdate oleh JS -->
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                id="cartBadge"
+              >
+                0
+                <span class="visually-hidden">item di keranjang</span>
+              </span>
+            </button>
+          </a>
         </div>
       </div>
     </nav>
@@ -101,14 +127,21 @@
               <div class="hero-right">
                 <p class="hero-body">
                   KayuKita memadukan keahlian tradisional dengan desain modern
-                  untuk menciptakan furnitur kokoh dari kayu jati Indonesia.
-                  Setiap bagian dibuat dengan tangan secara teliti, dirancang
-                  untuk menghadirkan kehangatan, karakter, dan kehadiran abadi
-                  ke setiap ruangan.
+                  untuk menciptakan furnitur kokoh dari kayu jati
+                  Indonesia.Setiap bagian dibuat dengan tangan secara teliti,
+                  dirancang untuk menghadirkan kehangatan, karakter, dan
+                  kehadiran abadi ke setiap ruangan.
                 </p>
 
                 <div class="hero-buttons">
-                  <a href="collection.html" class="btn-shop">Lihat Koleksi</a>
+                    <a href="./pages/collection.html">
+                        <button class="btn-shop">Lihat Koleksi</button>
+                    </a>
+                  
+                    <a href="./pages/cart.html">
+                        <button class="btn-catalog">Kelola Katalog</button>
+                    </a>
+                  
                 </div>
               </div>
             </div>

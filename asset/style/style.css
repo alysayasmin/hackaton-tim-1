@@ -2,9 +2,52 @@
     NOTE TO ALL FRIENDS, REMEMBER DON'T FORGET TO PUT COMMENT ON EVERY FEATURE TO HELP OTHER KNOW THIS FOR WHAT FEATURE TY!
  */
 
-.navbar {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #F5F2EC;
 }
+
+.navbar {
+    background-color: #F5F2EC !important;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Nav links */
+.navbar .nav-link {
+    color: #8A7D76;
+    margin-right: 5px;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    padding: 4px 0;
+    transition: color 0.2s;
+}
+
+.navbar .nav-link:hover, 
+.navbar .nav-link.active {
+    color: #3A2820;
+}
+
+.navbar .nav-link.active {
+    border-bottom: 1.5px solid #5C4033; 
+}
+
+.section-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #B5ABA4;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: #3A2820;
+    margin-bottom: 6px;
+}
+
 .hero-section {
   min-height: 100vh;
   display: flex;
@@ -17,7 +60,7 @@
   color: #7b6a5d;
 }
 
-.hero-heading {
+.hero-heading . {
   font-size: clamp(1.5rem, 4vw, 4rem);
   line-height: 1;
   font-weight: 700;
@@ -92,6 +135,45 @@
   border-radius: 20px;
 }
 
+.img-wrap {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s;
+}
+
+.img-wrap:hover .product-img {
+  transform: scale(1.1);
+}
+
+.price-old {
+  text-decoration: line-through;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.price-new {
+  font-weight: 700;
+  color: #3A2820;
+}
+
+.checkout-box {
+  background: white;
+  border-radius: 16px;
+}
+
+.tooltip-inner {
+  max-width: 200px;   /* batas lebar */
+  white-space: normal; /* biar turun ke bawah */
+  text-align: left;
+}
 .features {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

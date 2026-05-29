@@ -1,27 +1,425 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-    <!-- 
+  <!-- 
     NOTE TO ALL FRIENDS, REMEMBER DON'T FORGET TO PUT COMMENT ON EVERY FEATURE TO HELP OTHER KNOW THIS FOR WHAT FEATURE TY!
     -->
 
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="E-Catalog">
-    <meta name="keywords" content="furniture, tables, chair, indonesia, jepara">
-    <meta name="author" content="Tim 1 - KayuKita">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="E-Catalog" />
+    <meta
+      name="keywords"
+      content="furniture, tables, chair, indonesia, jepara"
+    />
+    <meta name="author" content="Tim 1 - KayuKita" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>KayuKita</title>
 
     <!-- Boostrap 5.3.8 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome CDN — taruh di head sebelum style.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
     <!-- style.css -->
-    <link rel="stylesheet" href="/Hackton-0/asset/style/style.css">
+    <link rel="stylesheet" href="../asset/style/style.css" />
+
     <!-- Favicon -->
-    <link rel="icon" type="images/png" href="asset/images/favicon.png">
-</head>
-<body>
+    <link rel="icon" type="images/png" href="../asset/images/favicon.png" />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg .bg-light mx-5">
+      <div class="container-fluid">
+        <!-- Brand / Logo -->
+        <a class="navbar-brand logo-brand" href="../index.html">
+          <img
+            src="../asset/images/Bigger Logo.png"
+            alt="Logo KayuKita"
+            width="155"
+            height="50"
+          />
+        </a>
+        <!-- Toggler Button (visible on mobile) -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navbar Content (Collapsible on mobile) -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Nav Links -->
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="../index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="./collection.html">Collection</a>
+            </li>
+          </ul>
+
+          <!-- ini ditambahin  <a href> -->
+          <a href="./cart.html">
+            <!-- Cart Button dengan Badge di Navbar -->
+            <button type="button" class="btn position-relative" id="cartBtn">
+              <!-- Icon cart dari Font Awesome -->
+              <i
+                class="fa-solid fa-cart-arrow-down"
+                style="font-size: 18px; color: #3a2820"
+              >
+            </i>
+
+              <!-- Badge angka — diupdate oleh JS -->
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                id="cartBadge"
+              >    0
+                <span class="visually-hidden">item di keranjang</span>
+              </span>
+            </button>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content -->
+
+    <!-- Page Header -->
+    <!-- Content -->
+
+<!-- Page Header -->
+<section class="page-header pt-5 pb-2">
+  <div class="container">
+    <p class="section-tag">The Collection</p>
+    <h2 class="section-title">Setiap karya, dalam satu ruang</h2>
+    <p style="font-size: 14px; color: #b5aba4" id="product-count">
+      Memuat produk...
+    </p>
+  </div>
+</section>
+
+<!-- Product List -->
+<section class="py-4">
+  <div class="container">
+    <div class="row g-4" id="productGrid">
+      <!-- Card akan dirender oleh JS -->
+    </div>
+  </div>
+</section>
+
+<div id="successAlert" class="position-fixed top-50 start-50 translate-middle d-none">
+  <div class="bg-white p-4 rounded shadow text-center">
+    <div class="mb-2">
+      <i class="fa-solid fa-circle-check text-success" style="font-size:40px;"></i>
+    </div>
+    <p class="mb-0 fw-semibold">Berhasil ditambahkan!</p>
+  </div>
+</div>
+
+<div class="modal fade" id="productDetailModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Detail Produk</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <img id="modalImage" class="img-fluid mb-3 rounded" />
+
+        <h5 id="modalName"></h5>
+        <p class="text-muted mb-1" id="modalCategory"></p>
+        <p class="fw-bold" id="modalPrice"></p>
+
+        <p id="modalDesc"></p>
+
+        <p id="modalStock"></p>
+
+      </div>
+
+      <div class="modal-footer">
+        <button id="modalAddBtn" class="btn btn-dark w-100">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const products = [
+    {
+      id: 1,
+      name: "Meja Jati Minimalis",
+      category: "Meja",
+      price: 1250000,
+      stock: 10,
+      desc:"Meja Jati Minimalis menghadirkan perpaduan sempurna antara kekuatan kayu jati murni berdaya tahan tinggi dan estetika modern yang bersih. Didesain dengan garis-garis yang tegas tanpa dekorasi berlebih, meja ini menonjolkan keindahan serat kayu alami yang khas sekaligus memberikan kesan ruangan yang lebih luas, rapi, dan elegan.",
+      image: "https://images.unsplash.com/photo-1602872030490-4a484a7b3ba6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 2,
+      name: "Kursi Rotan",
+      category: "Kursi",
+      price: 850000,
+      stock: 110,
+      desc:"Kursi kayu dengan kombinasi anyaman rotan tengah menjadi tren utama dalam desain interior modern tropis dan Mid-Century Modern. Perpaduan material rangka kayu jati solid yang kokoh dan kelenturan anyaman rotan alami menciptakan tampilan furnitur yang estetik, ringan, namun tetap berdaya tahan tinggi.",
+      image: "https://images.unsplash.com/photo-1603204077067-65ee7573cf3f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 3,
+      name: "Lemari Kayu",
+      category: "Lemari",
+      price: 2100000,
+      stock: 1,
+      desc:"Jika Anda memiliki kamar dengan area yang cukup efisien, lemari dengan desain vertikal ramping atau sistem pintu geser adalah solusi terbaik agar tidak memakan ruang saat dibuka.",
+      image: "https://images.unsplash.com/photo-1721308897744-c14822f11df9?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 4,
+      name: "Lemari Kabinet TV",
+      category: "Meja",
+      price: 1250000,
+      stock: 230,
+      desc:"Lemari kabinet TV kayu saat ini tidak hanya berfungsi sebagai penopang televisi, melatingkan juga menjadi pusat estetika ruang keluarga. Tren desain terbaru berfokus pada fleksibilitas ukuran dan efisiensi ruang tanpa mengorbankan tempat penyimpanan.",
+      image: "https://images.unsplash.com/photo-1771692826906-dd250a2502c3?q=80&w=2231&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 5,
+      name: "Dipan Tidur kayu jati",
+      category: "Kursi",
+      price: 850000,
+      stock: 10,
+      desc:"Jika Anda menyukai ranjang tradisional dengan sandaran kepala (headboard) yang kokoh untuk bersandar saat membaca buku atau bermain ponsel sebelum tidur. Dipan tempat tidur kayu jati adalah pilihan investasi furnitur terbaik untuk kamar tidur. Karakteristik kayu jati solid yang terkenal sangat kuat, tahan lama, tidak mudah melengkung, dan secara alami anti-rayap menjadikannya unggul untuk penggunaan jangka panjang hingga puluhan tahun.",
+      image: "https://images.unsplash.com/photo-1688384452844-8364c3e2fc28?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 6,
+      name: "Set Meja Makan 6 kursi",
+      category: "Lemari",
+      price: 2100000,
+      stock: 10,
+      desc:"Bentuk persegi panjang sangat cocok ditempatkan di ruang makan yang memanjang, memberikan area penyajian hidangan tengah yang lebih leluasa. Set meja makan dengan 6 kursi merupakan pilihan ideal untuk menjamu keluarga besar atau tamu dengan nyaman. Memilih material berbasis kayu jati solid memastikan kestabilan struktur meja saat menopang banyak hidangan, sekaligus memberikan tampilan ruang makan yang hangat dan berkelas.",
+      image: "https://images.unsplash.com/photo-1758977245854-b0ea036e0ce2?q=80&w=1560&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+  ];
+
+  function getProducts() {
+    return JSON.parse(localStorage.getItem("products")) || products;
+}
+
+  function saveProducts(data) {
+    localStorage.setItem("products", JSON.stringify(data));
+}
+
+  function getCart() {
+    return JSON.parse(localStorage.getItem("cartItems")) || [];
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem("cartItems", JSON.stringify(cart));
+  }
+
+  function updateCartBadge() {
+    const cart = getCart();
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById("cartBadge").textContent = total;
+  }
+
+ function addToCart(productId) {
+  let productList = getProducts();
+  let product = productList.find(p => p.id === productId);
+
+  if (!product || product.stock <= 0) return;
+
+  let cart = getCart();
+  let existing = cart.find(item => item.id === productId);
+
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...product, qty: 1 });
+  }
+
+ 
+  product.stock--;
+
+  saveProducts(productList);
+  saveCart(cart);
+
+  updateCartBadge();
+  renderProducts();
+
+
+  showSuccess(product.name);
+}
+
+  function renderProducts() {
+  const productGrid = document.getElementById("productGrid");
+  const productCount = document.getElementById("product-count");
+
+  const productList = getProducts(); // 🔥 ambil dari localStorage
+
+  productCount.textContent = `${productList.length} produk tersedia`;
+
+  productGrid.innerHTML = productList.map(product => {
+
+    const isOut = product.stock <= 0;
+
+    return `
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+
+          <img src="${product.image}" class="card-img-top"
+               style="height:220px; object-fit:cover;">
+
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <h5>${product.name}</h5>
+
+              <!-- ICON INFO -->
+              <i class="fa-solid fa-circle-info text-muted"
+                style="cursor:pointer;"
+                onclick="openDetail(${product.id})">
+              </i>
+            </div>
+
+            <p class="fw-bold mb-1">
+              Rp ${product.price.toLocaleString("id-ID")}
+            </p>
+
+            <!-- STOCK -->
+            <p class="text-${isOut ? 'danger' : 'success'} mb-3">
+              ${isOut ? 'Barang Habis' : 'Stock: ' + product.stock}
+            </p>
+
+            <button 
+              class="btn ${isOut ? 'btn-secondary' : 'btn-dark'} w-100"
+              ${isOut ? 'disabled' : ''}
+              onclick="addToCart(${product.id})"
+            >
+              ${isOut ? 'Barang Habis' : 'Add to Cart'}
+            </button>
+
+          </div>
+        </div>
+      </div>
+    `;
+
+  }).join("");
+
+    document.getElementById("product-count").textContent =
+      products.length + " produk tersedia";
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!localStorage.getItem("products")) {
+    saveProducts(products);
+    }
     
-</body>
+    renderProducts();
+    updateCartBadge();
+  });
+
+function showSuccess(productName) {
+  Swal.fire({
+    icon: "success",
+    title: productName,
+    text: "Berhasil ditambahkan ke keranjang",
+    timer: 1500,
+    showConfirmButton: false,
+    timerProgressBar: true,
+    position: "top-end",
+    toast: true,
+    background: "#fff",
+    color: "#333"
+  });
+}
+
+let selectedProductId = null;
+
+function openDetail(id) {
+  const product = products.find(p => p.id === id);
+  if (!product) return;
+
+  selectedProductId = id;
+
+  // Isi data ke modal
+  document.getElementById("modalImage").src = product.image;
+  document.getElementById("modalName").textContent = product.name;
+  document.getElementById("modalCategory").textContent = product.category || "-";
+  document.getElementById("modalPrice").textContent =
+    "Rp " + product.price.toLocaleString("id-ID");
+  document.getElementById("modalDesc").textContent = product.desc;
+  document.getElementById("modalStock").textContent =
+    product.stock > 0 ? "Stock: " + product.stock : "Out of Stock";
+
+  // Disable tombol kalau habis
+  const btn = document.getElementById("modalAddBtn");
+  if (product.stock <= 0) {
+    btn.disabled = true;
+    btn.textContent = "Out of Stock";
+    btn.classList.replace("btn-dark", "btn-secondary");
+  } else {
+    btn.disabled = false;
+    btn.textContent = "Add to Cart";
+    btn.classList.replace("btn-secondary", "btn-dark");
+  }
+
+  // Show modal
+  const modal = new bootstrap.Modal(document.getElementById("productDetailModal"));
+  modal.show();
+}
+
+document.getElementById("modalAddBtn").addEventListener("click", function () {
+  if (selectedProductId !== null) {
+    addToCart(selectedProductId);
+
+    // Tutup modal
+    const modalEl = document.getElementById("productDetailModal");
+    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+    modalInstance.hide();
+  }
+});
+</script>
+
+    <!-- Boostrap Javascript (bundle with popper) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    //Alert
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
 </html>

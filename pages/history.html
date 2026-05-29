@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riwayat Pesanan</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f8f6f4;
+    }
+
+    .history-wrapper {
+      max-width: 850px;
+      margin: 80px auto;
+    }
+
+    .history-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .history-header h2 {
+      font-weight: 700;
+    }
+
+    .history-card {
+      border: none;
+      border-radius: 16px;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    .history-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .history-item {
+      font-size: 14px;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+
+    .empty-state i {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 🔙 Back Button -->
+<a href="./collection.html" class="btn btn-outline-dark back-btn">
+  <i class="fa-solid fa-arrow-left"></i> Kembali
+</a>
+
+<div class="history-wrapper">
+
+  <!-- Header -->
+  <div class="history-header">
+    <h2>Riwayat Pesanan</h2>
+    <p class="text-muted">Semua transaksi kamu tersimpan di sini</p>
+  </div>
+
+  <!-- Content -->
+  <div id="historyContainer"></div>
+
+</div>
+
+<script>
+function getHistory() {
+  return JSON.parse(localStorage.getItem("orderHistory")) || [];
+}
+
+function formatRupiah(num) {
+  return "Rp " + num.toLocaleString("id-ID");
+}
+
+function renderHistory() {
+  const history = getHistory();
+  const container = document.getElementById("historyContainer");
+
+  if (!history.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <i class="fa-regular fa-folder-open"></i>
+        <p>Belum ada riwayat pesanan</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = history.reverse().map(order => `
+    <div class="history-card">
+
+      <div class="d-flex justify-content-between mb-2">
+        <strong>${order.name}</strong>
+        <small class="text-muted">${order.date}</small>
+      </div>
+
+      <p class="text-muted mb-3">${order.address}</p>
+
+      ${order.items.map(item => `
+        <div class="d-flex justify-content-between history-item mb-1">
+          <span>${item.name} (${item.qty}x)</span>
+          <span>${formatRupiah(item.price * item.qty)}</span>
+        </div>
+      `).join("")}
+
+      <hr>
+
+      <div class="d-flex justify-content-between fw-bold">
+        <span>Total</span>
+        <span>${formatRupiah(order.total)}</span>
+      </div>
+
+    </div>
+  `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", renderHistory);
+</script>
+
+</body>
+</html>
