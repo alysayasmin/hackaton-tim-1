@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- 
+    NOTE TO ALL FRIENDS, REMEMBER DON'T FORGET TO PUT COMMENT ON EVERY FEATURE TO HELP OTHER KNOW THIS FOR WHAT FEATURE TY!
+    -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="E-Catalog">
+    <meta name="keywords" content="furniture, tables, chair, indonesia, jepara">
+    <meta name="author" content="Tim 1 - KayuKita">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cart — KayuKita</title>
+
+    <!-- Bootstrap 5.3.8 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/asset/style/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/asset/images/favicon.png">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg mx-5">
+        <div class="container-fluid">
+            <!-- Brand / Logo -->
+            <a class="navbar-brand" href="/index.html">
+                <img src="/asset/images/Navbar Logo.png" alt="Logo KayuKita" width="155" height="50">
+            </a>
+
+            <!-- Toggler Button (visible on mobile) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Content (Collapsible on mobile) -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Nav Links -->
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pages/collection.html">Collection</a>
+                    </li>
+                </ul>
+
+                <!-- Cart Button dengan Badge -->
+                <a href="/pages/cart.html" class="ms-3">
+                    <button type="button" class="btn position-relative" id="cartBtn">
+                        <i class="fa-solid fa-cart-arrow-down" style="font-size: 18px; color: #3A2820;"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            id="cartBadge" style="display:none;">
+                            0
+                            <span class="visually-hidden">item di keranjang</span>
+                        </span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CART -->
+    <section class="page-wrap">
+        <div class="container mt-5">
+
+            <!-- Judul cart — diupdate JS -->
+            <h2 class="mb-4" id="cart-title">Cart (0)</h2>
+
+            <!-- List item cart — dirender oleh JS -->
+            <div class="card shadow-sm border-0 rounded-4" id="cart-items">
+                <!-- Diisi oleh renderCart() di index.js -->
+            </div>
+
+            <!-- Total + Tombol Bayar -->
+            <div class="d-flex justify-content-between align-items-center mt-4">
+
+                <!-- Total harga -->
+                <div>
+                    <p class="text-muted mb-1" style="font-size: 18px;">Total Pembayaran</p>
+                    <h4 class="fw-bold mb-0" style="color: #3A2820;" id="cart-total">Rp 0</h4>
+                </div>
+
+                <!-- Tombol buka modal checkout -->
+                <button class="btn btn-dark px-5 py-3 rounded-3 fw-semibold" data-bs-toggle="modal"
+                    data-bs-target="#checkoutModal">
+                    Bayar Sekarang
+                </button>
+
+            </div>
+
+            <!-- MODAL CHECKOUT -->
+            <div class="modal fade" id="checkoutModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4 border-0 shadow">
+
+                        <!-- Header modal -->
+                        <div class="modal-header border-0 px-4 pt-4">
+                            <h3 class="modal-title fw-bold">Checkout</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Body modal -->
+                        <div class="modal-body px-4 pb-4">
+
+                            <!-- Total di dalam modal — diupdate JS -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Total Pembayaran</label>
+                                <div class="form-control py-3 rounded-3 bg-light fw-bold" style="color: #3A2820;"
+                                    id="modal-total">
+                                    Rp 0
+                                </div>
+                            </div>
+
+                            <!-- Input Nama — pakai ID biar JS bisa ambil nilainya -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Nama Lengkap <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control rounded-3 py-2" id="inputNama"
+                                    placeholder="Masukkan nama lengkap">
+                            </div>
+
+                            <!-- Input Alamat — pakai ID -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    Alamat Pengiriman <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control rounded-3" id="inputAlamat" rows="3"
+                                    placeholder="Masukkan alamat lengkap"></textarea>
+                            </div>
+
+                            <!-- Input Catatan -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Catatan Pengiriman</label>
+                                <textarea class="form-control rounded-3" id="inputCatatan" rows="2"
+                                    placeholder="Contoh: Rumah pagar hitam"></textarea>
+                            </div>
+
+                            <!-- Tombol konfirmasi — memanggil handleCheckout() -->
+                            <button class="btn btn-dark w-100 py-3 rounded-3 fw-semibold" onclick="handleCheckout()">
+                                Konfirmasi Pembayaran
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <!-- SweetAlert2 JS — harus sebelum index.js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- KayuKita JS -->
+    <script src="/asset/Javascript/index.js"></script>
+
+</body>
+
+</html>

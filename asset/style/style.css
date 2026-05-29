@@ -3,54 +3,66 @@
  */
 
 body {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    background-color: #F5F2EC;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: #F5F2EC;
 }
 
+/* 
+    NAVBAR
+*/
 .navbar {
-    background-color: #F5F2EC !important;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-    padding-top: 10px;
-    padding-bottom: 10px;
+  background-color: #F5F2EC !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-/* Nav links */
 .navbar .nav-link {
-    color: #8A7D76;
-    margin-right: 5px;
-    font-size: 15px;
-    letter-spacing: 0.2px;
-    padding: 4px 0;
-    transition: color 0.2s;
+  color: #8A7D76;
+  margin-right: 5px;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+  padding: 4px 0;
+  transition: color 0.2s;
 }
 
-.navbar .nav-link:hover, 
+.navbar .nav-link:hover,
 .navbar .nav-link.active {
-    color: #3A2820;
+  color: #3A2820;
 }
 
 .navbar .nav-link.active {
-    border-bottom: 1.5px solid #5C4033; 
+  border-bottom: 1.5px solid #5C4033;
 }
 
+/* 
+    SECTION LABELS
+*/
 .section-tag {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #B5ABA4;
-    margin-bottom: 12px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #B5ABA4;
+  margin-bottom: 12px;
 }
 
 .section-title {
-    font-size: 40px;
-    font-weight: 700;
-    color: #3A2820;
-    margin-bottom: 6px;
+  font-size: 40px;
+  font-weight: 700;
+  color: #3A2820;
+  margin-bottom: 6px;
 }
 
+/*  
+    HERO — Home Page
+ */
 .hero-section {
   min-height: 100vh;
   display: flex;
+}
+
+.text-highlight {
+  color: #5C4033;
 }
 
 .eyebrow {
@@ -60,33 +72,29 @@ body {
   color: #7b6a5d;
 }
 
-.hero-heading . {
+.hero-heading {
   font-size: clamp(1.5rem, 4vw, 4rem);
   line-height: 1;
   font-weight: 700;
   letter-spacing: -2px;
   color: #1f1b18;
   max-width: 480px;
-  /* display: flex; */
 }
 
 .hero-heading em {
   color: #7b6a5d;
   font-weight: 600;
-  display: flex;
 }
 
 .hero-right {
   max-width: 480px;
-  margin-left: flex;
 }
 
 .hero-body {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   color: #6f6257;
   margin-bottom: 2rem;
-  display: flex;
 }
 
 .hero-buttons {
@@ -95,32 +103,19 @@ body {
   flex-wrap: wrap;
 }
 
-.btn-shop,
-.btn-catalog {
-  padding: 1rem 2rem;
+.btn-shop {
+  padding: 0.8rem 1.5rem;
   border-radius: 12px;
   font-size: 1rem;
-  border: 1px solid #c9b8aa;
-  transition: 0.3s ease;
-}
-
-.btn-shop {
   background-color: #8b735f;
   color: white;
   border: none;
+  transition: 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-shop:hover {
   background-color: #735e4d;
-}
-
-.btn-catalog {
-  background-color: transparent;
-  color: #5e5147;
-}
-
-.btn-catalog:hover {
-  background-color: #e8e0d8;
 }
 
 .hero-image-full {
@@ -133,4 +128,183 @@ body {
   height: clamp(300px, 50vw, 550px);
   object-fit: cover;
   border-radius: 20px;
+  margin-bottom: 50px;
+}
+
+/* 
+    COLLECTION — Product Grid
+*/
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-bottom: 60px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  /* Flexbox biar card-body bisa grow */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-img img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+/* Card body flex grow — mendorong cart-actions ke bawah */
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #2c2416;
+}
+
+.card-desc {
+  color: #777;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-size: 14px;
+  /* Batasi deskripsi 3 baris */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Flex grow mendorong card-footer & cart-actions ke bawah */
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.card-price {
+  color: #5c4033;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.card-stock {
+  font-size: 13px;
+  color: #999;
+}
+
+/* ============================================
+   CART ACTIONS — Tombol Add to Cart & Qty
+   ============================================ */
+.cart-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Selalu di bawah karena card-desc flex:1 */
+  margin-top: auto;
+}
+
+/* Tombol Add to Cart — full width */
+.add-cart-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.add-cart-btn:hover {
+  background: #3A2820;
+}
+
+.add-cart-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Tombol +/- qty */
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #5c4033;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.qty-btn:hover {
+  background: #3A2820;
+}
+
+.qty-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Angka qty di tengah */
+.qty {
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+  color: #2c2416;
+}
+
+/* ============================================
+   CART PAGE
+   ============================================ */
+.page-wrap {
+  padding-bottom: 80px;
+}
+
+.cart-item {
+  transition: background 0.15s;
+}
+
+.cart-item:hover {
+  background: #f8f5ef;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 992px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
 }

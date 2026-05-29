@@ -62,19 +62,18 @@
                 <!-- ini ditambahin  <a href> -->
 
                 <!-- Cart Button dengan Badge di Navbar -->
-                <button type="button" class="btn position-relative" id="cartBtn">
-
-                    <!-- Icon cart dari Font Awesome -->
-                    <i class="fa-solid fa-cart-arrow-down" style="font-size: 18px; color: #3A2820;"></i>
-
-                    <!-- Badge angka — diupdate oleh JS -->
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                        id="cartBadge">
-                        0
-                        <span class="visually-hidden">item di keranjang</span>
-                    </span>
-
-                </button>
+                <a href="/pages/cart.html">
+                    <button href="/pages/cart.html" type="button" class="btn position-relative" id="cartBtn">
+                        <!-- Icon cart dari Font Awesome -->
+                        <i class="fa-solid fa-cart-arrow-down" style="font-size: 18px; color: #3A2820;"></i>
+                        <!-- Badge angka — diupdate oleh JS -->
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            id="cartBadge">
+                            0
+                            <span class="visually-hidden">item di keranjang</span>
+                        </span>
+                    </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -93,7 +92,7 @@
                             <!-- ubah warna -->
                             <span class="text-highlight"><i>craftsmanship</i></span>, <br />
                             from the heart of <br />
-                            <span class="text-highlight"><i>craftsmanship</i></span> teak.
+                            <span class="text-highlight"><i>Indonesia</i></span> teak.
                         </h1>
                     </div>
 
@@ -109,7 +108,6 @@
 
                             <div class="hero-buttons">
                                 <button class="btn-shop">Lihat Koleksi</button>
-                                <button class="btn-catalog">Kelola Katalog</button>
                             </div>
                         </div>
                     </div>
@@ -122,6 +120,19 @@
             </div>
         </section>
     </main>
+
+    <footer>
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="card-footer text-body-secondary">
+                2 days ago
+            </div>
+        </div>
+    </footer>
 
     <!-- Boostrap Javascript (bundle with popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
