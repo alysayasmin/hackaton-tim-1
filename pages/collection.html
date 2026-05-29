@@ -165,7 +165,10 @@
       </div>
 
       <div class="modal-footer">
-        <button id="modalAddBtn" class="btn btn-dark w-100">
+        <button
+          id="modalAddBtn"
+          class="btn w-100"
+          style="background-color: #3A2820; color: white;" >
           Add to Cart
         </button>
       </div>
@@ -323,11 +326,11 @@
             </p>
 
             <button 
-              class="btn ${isOut ? 'btn-secondary' : 'btn-dark'} w-100"
-              ${isOut ? 'disabled' : ''}
-              onclick="addToCart(${product.id})"
+              class="btn ${isOut ? "btn-secondary" : "custom-btn"} w-100"
+              ${isOut ? "disabled" : ""}
+              onclick="addToCart(${product.id})" 
             >
-              ${isOut ? 'Barang Habis' : 'Add to Cart'}
+              ${isOut ? "Barang Habis" : "Add to Cart"}
             </button>
 
           </div>
